@@ -1,10 +1,10 @@
 package com.tfxsoftware.recyclelist
 
+import java.io.Serializable
 
 
-class Contacts() {
-    fun createContactList(): List<ContactEntry>{
-        return listOf<ContactEntry>(
+class Contacts() : Serializable {
+        var list = listOf<ContactEntry>(
             ContactEntry("Aline", "198313279"),
             ContactEntry("Beatriz", "198646124"),
             ContactEntry("Carlos", "189464134"),
@@ -18,10 +18,8 @@ class Contacts() {
             ContactEntry("Akon", "9696969696969"),
             ContactEntry("Maria Carey", "7894615312"),
             ContactEntry("Jim Carey", "19896461356"),
-            ContactEntry("josephine", "1986462646")
+            ContactEntry("josephine", "1986462646"))
 
 
-        )
+
     }
-
-}

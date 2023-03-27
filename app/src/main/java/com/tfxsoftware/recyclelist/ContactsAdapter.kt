@@ -19,4 +19,7 @@ class ContactsAdapter(private val contactList: List<ContactEntry>) : RecyclerVie
         holder.bind(item)
     }
 
+    fun notifyAdapter(list:List<ContactEntry>){
+        notifyDataSetChanged()
+    }
 }

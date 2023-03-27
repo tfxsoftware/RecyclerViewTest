@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import org.json.JSONObject
 import java.io.Serializable
 
 class RegisterActivity : AppCompatActivity() {
@@ -20,8 +23,8 @@ class RegisterActivity : AppCompatActivity() {
                 var number = editNumber.text.toString()
                 var name = editName.text.toString()
                 var newContact = ContactEntry(name, number)
-//                val intent = Intent(this, MainActivity::class.java)
-
+                Toast.makeText(this, connectDb().toString(), Toast.LENGTH_SHORT).show()
+                addContact(newContact)
                 Intent().apply {
                     putExtra("contato", newContact)
                     setResult(RESULT_OK, this)
@@ -35,5 +38,22 @@ class RegisterActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+
+
+    private fun connectDb(): StorageReference{
+        val storage = FirebaseStorage.getInstance()
+        return storage.reference
+    }
+
+    private fun addContact(contact: ContactEntry){
+        val fileRef = connectDb().child(contact.name + ".json")
+        val json = JSONObject()
+        json.put("name", contact.name)
+        json.put("number", contact.number)
+        val bytes = json.toString().toByteArray()
+        fileRef.putBytes(bytes)
+
     }
 }
